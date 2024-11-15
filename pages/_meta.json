@@ -1,0 +1,15 @@
+{
+  "financial-calculations": "Financial calculation",
+  "node-connections": "Node connections",
+  "contributing": "Contributing",
+  "about": {
+    "title": "About",
+    "type": "page"
+  },
+  "contact": {
+    "title": "Contact ↗",
+    "type": "page",
+    "href": "https://twitter.com/shuding_",
+    "newWindow": true
+  }
+}
