@@ -1,4 +1,4 @@
-# Nextra Docs Template 
+# Dreamplanner docs
 
 This is a template for creating documentation with [Nextra](https://nextra.site).
 
