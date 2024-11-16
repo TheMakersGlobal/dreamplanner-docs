@@ -1,1 +1,130 @@
-# this is tax page
+# Tax Calculation Documentation
+
+---
+
+## 📄 Source Links
+
+- [Detailed Guide on Taxation (2023-2024) by IRD Sri Lanka](https://www.ird.gov.lk/en/Downloads/IT_SET_Doc/SET_23_24_Detail_Guide_E.pdf)
+
+---
+
+## Overview
+
+The tax calculation process determines the amount of tax owed based on annual income, applying predefined tax brackets and deductions. The calculation follows a progressive tax system and adheres to the regulations outlined by the **IRD Sri Lanka**.
+
+---
+
+## Variables Used
+
+### 1. **`annualIncome`**
+- The total annual income subject to tax.
+- **Type**: Positive number.
+- **Example**: `3,000,000`
+
+### 2. **`ANNUAL_DEDUCTION`**
+- A fixed deduction applied to the income before tax calculations begin.
+- **Value**: `1,200,000`
+
+### 3. **`TAX_BRACKETS`**
+- A progressive structure that defines tax rates for incremental portions of income.
+- **Structure**:
+  - For the first `500,000`: Tax at `6%`
+  - For the next `500,000`: Tax at `12%`
+  - For the next `500,000`: Tax at `18%`
+  - For the next `500,000`: Tax at `24%`
+  - For the next `500,000`: Tax at `30%`
+  - Remaining income: Tax at `36%`
+
+---
+
+## Calculation Steps
+
+1. **Apply Annual Deduction**
+   - Subtract `ANNUAL_DEDUCTION` from the total `annualIncome`.
+   - If the remaining income is less than or equal to `0`, the tax is `0`.
+
+   **Example**:  
+   For `annualIncome = 3,000,000`,  
+   Remaining income = `3,000,000 - 1,200,000 = 1,800,000`.
+
+2. **Iterate Over Tax Brackets**
+   - For each bracket:
+     1. Take the smaller value between the remaining income and the current bracket limit.
+     2. Multiply it by the respective tax rate.
+     3. Add this to the total tax.
+     4. Subtract the taxed amount from the remaining income.
+   - Stop when the remaining income is `0`.
+
+   **Example**:  
+   Remaining income: `1,800,000`  
+   - First `500,000` taxed at `6%` → `30,000`  
+   - Next `500,000` taxed at `12%` → `60,000`  
+   - Next `500,000` taxed at `18%` → `90,000`  
+   - Remaining `300,000` taxed at `24%` → `72,000`  
+   **Total Tax**: `252,000`
+
+3. **Round the Result**
+   - The total tax is rounded to the nearest whole number.
+
+---
+
+## Edge Cases
+
+1. **Income Less Than or Equal to `0`**
+   - **Result**: Tax is `0`.
+   - **Reason**: No taxable income exists.
+
+2. **Income Less Than or Equal to `ANNUAL_DEDUCTION`**
+   - **Result**: Tax is `0`.
+   - **Reason**: Deduction fully offsets the income.
+
+3. **High Incomes**
+   - All brackets are applied progressively.
+   - Any income above `3,000,000` is taxed at the highest rate of `36%`.
+
+---
+
+## Example Scenarios
+
+### Scenario 1: Low Income
+**Annual Income**: `1,000,000`  
+**Deduction**: `1,200,000`  
+**Taxable Income**: `0`  
+**Tax**: `0`
+
+---
+
+### Scenario 2: Mid-Level Income
+**Annual Income**: `3,000,000`  
+**Deduction**: `1,200,000`  
+**Taxable Income**: `1,800,000`  
+**Tax Calculation**:
+- First `500,000` taxed at `6%` → `30,000`
+- Next `500,000` taxed at `12%` → `60,000`
+- Next `500,000` taxed at `18%` → `90,000`
+- Remaining `300,000` taxed at `24%` → `72,000`
+**Total Tax**: `252,000`
+
+---
+
+### Scenario 3: High Income
+**Annual Income**: `6,000,000`  
+**Deduction**: `1,200,000`  
+**Taxable Income**: `4,800,000`  
+**Tax Calculation**:
+- First `500,000` taxed at `6%` → `30,000`
+- Next `500,000` taxed at `12%` → `60,000`
+- Next `500,000` taxed at `18%` → `90,000`
+- Next `500,000` taxed at `24%` → `120,000`
+- Next `500,000` taxed at `30%` → `150,000`
+- Remaining `2,300,000` taxed at `36%` → `828,000`
+**Total Tax**: `1,278,000`
+
+---
+
+## Notes
+
+- The tax calculation follows a **progressive system**, meaning higher portions of income are taxed at higher rates.
+- Tax brackets and deductions should be updated to reflect changes in tax policies.
+- This documentation is based on the [Detailed Guide on Taxation (2023-2024) by IRD Sri Lanka](https://www.ird.gov.lk/en/Downloads/IT_SET_Doc/SET_23_24_Detail_Guide_E.pdf).
+
